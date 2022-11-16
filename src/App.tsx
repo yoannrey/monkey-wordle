@@ -30,13 +30,15 @@ export default function App() {
     console.log(pressed)
 
     return (
-        <div>
-            <h1 className='text-3xl font-bold uppercase'>
-                Hello World!
-            </h1>
-            <div>
+        <div className="h-screen flex flex-col
+                    items-center justify-center">
+            <div className="content-center">
                 {pressed.map((char, i) => {
-                    return <span key={i} className="uppercase">{char}</span>
+                    return (
+                        <span key={i} className="uppercase test text-gray-base
+                              mr-3 py-8 px-10 h-2 border
+                              border-gray-200 rounded mb-2">{char}</span>
+                    )
                 })}
             </div>
         </div>
