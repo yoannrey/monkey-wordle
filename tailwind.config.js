@@ -13,7 +13,18 @@ module.exports = {
     // spacing: {
     //   '32': '32rem',
     // },
-    extend: {},
+    extend: {
+      keyframes: {
+        wave: {
+          '0%': { transform: 'rotateX(0.0deg)' },
+          '15%': { transform: 'rotateX(90deg)' },
+          '30%': { transform: 'rotateX(0.0deg)' },
+        },
+      },
+      animation: {
+        'flip-card': 'wave 2s linear 1',
+      },
+    },
   },
   plugins: [],
 }

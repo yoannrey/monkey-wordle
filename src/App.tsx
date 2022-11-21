@@ -3,10 +3,16 @@ import './App.css';
 import WordRow, {CompleteRow, EmptyRow} from "./Components/Grid/Cell";
 import {Utils} from "./Utils";
 
+
+function isGameWin(value: string[], word: string[]): boolean {
+    return JSON.stringify(value) === JSON.stringify(word);
+}
+
 export default function App() {
     const [pressed, setPressed] = useState<Array<string>>([]);
     const [submitted, setSubmitted] = useState<Array<Array<string>>>([]);
     const TRIES_NB = 6;
+    const word = 'chien';
     useEffect(() => {
             function handleKeyDown({key}: { key: string }) {
                 const isChar: boolean = /^[A-Za-z]$/.test(key);
@@ -42,12 +48,15 @@ export default function App() {
         ,
         [pressed.length, pressed, submitted.length]
     ) // Used to check when length has changed
-
+    if (isGameWin(submitted[submitted.length - 1], word.split(''))) {
+        return <div className="h-screen bg-zinc-800 flex flex-col
+                    items-center text-amber-50"> BRAVO C'EST GAGNÉ</div>
+    }
     return (
-        <div className="h-screen flex flex-col
+        <div className="h-screen bg-zinc-800 flex flex-col
                     items-center">
             <div className="content-center mt-5">
-                {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]}/>)}
+                {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]} word={word.split('')}/>)}
                 {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED'}
                 {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
