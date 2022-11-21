@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import WordRow, {EmptyRow} from "./Components/Grid/Cell";
+import WordRow, {CompleteRow, EmptyRow} from "./Components/Grid/Cell";
 import {Utils} from "./Utils";
 
 export default function App() {
     const [pressed, setPressed] = useState<Array<string>>([]);
     const [submitted, setSubmitted] = useState<Array<Array<string>>>([]);
+    const TRIES_NB = 6;
     useEffect(() => {
             function handleKeyDown({key}: { key: string }) {
                 const isChar: boolean = /^[A-Za-z]$/.test(key);
@@ -22,13 +23,15 @@ export default function App() {
                         break;
                     case isEnter && isWordComplete:
                         setSubmitted((prev) => [...prev, pressed]);
+                        // Do the things
+
                         setPressed([]);
+
                         break;
                     case isChar && pressed.length < 5:
                         setPressed((prev) => [...prev, key]);
                         break;
                 }
-                console.log(submitted);
             }
 
             window.addEventListener('keydown', handleKeyDown);
@@ -37,16 +40,16 @@ export default function App() {
             }
         }
         ,
-        [pressed.length, pressed]
+        [pressed.length, pressed, submitted.length]
     ) // Used to check when length has changed
 
     return (
         <div className="h-screen flex flex-col
                     items-center">
-            <div className="content-center">
-                <WordRow value={pressed} />
-                <EmptyRow />
-                <EmptyRow />
+            <div className="content-center mt-5">
+                {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]}/>)}
+                {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED'}
+                {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
         </div>
     );
