@@ -2,17 +2,19 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import WordRow, {CompleteRow, EmptyRow} from "./Components/Grid/Cell";
 import {Utils} from "./Utils";
+import {json_data} from "./json_data";
 
 
 function isGameWin(value: string[], word: string[]): boolean {
     return JSON.stringify(value) === JSON.stringify(word);
 }
 
-export default function App() {
+export default function App({word}: { word: string }) {
     const [pressed, setPressed] = useState<Array<string>>([]);
     const [submitted, setSubmitted] = useState<Array<Array<string>>>([]);
     const TRIES_NB = 6;
-    const word = 'chien';
+
+    // const word = 'chien';
     useEffect(() => {
             function handleKeyDown({key}: { key: string }) {
                 const isChar: boolean = /^[A-Za-z]$/.test(key);
@@ -55,9 +57,9 @@ export default function App() {
     return (
         <div className="h-screen bg-zinc-800 flex flex-col
                     items-center">
-            <div className="content-center mt-5">
+            <div className="content-center mt-[6rem]">
                 {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]} word={word.split('')}/>)}
-                {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED'}
+                {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED: ' + word}
                 {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
         </div>
