@@ -19,7 +19,7 @@ type WordRowProps = {
 
 export default function WordRow({value}: WordRowProps) {
     return (
-        <div className="grid grid-cols-5 place-items-center gap-5 mb-[1rem]">
+        <div className="grid grid-cols-5 place-items-center gap-3 mb-[1rem]">
             {Array.from({length: 5}).map((_, i) => {
                     return (
                         <Cell key={i} value={value![i] || ''} isComplete={IsComplete.NOT}/>
@@ -31,7 +31,7 @@ export default function WordRow({value}: WordRowProps) {
 
 export function EmptyRow() {
     return (
-        <div className="grid grid-cols-5 place-items-center gap-5 mb-[1rem]">
+        <div className="grid grid-cols-5 place-items-center gap-3 mb-[1rem]">
             {Array.from({length: 5}).map((_, i) => {
                     return (
                         <Cell key={i} value={''} isComplete={IsComplete.NOT}/>
@@ -56,7 +56,7 @@ export function CompleteRow({value, word}: WordRowProps) {
     let map1 = new Map();
     map1 = isLetterIn(word!);
     return (
-        <div className="grid grid-cols-5 place-items-center gap-5 mb-[1rem]">
+        <div className="grid grid-cols-5 place-items-center gap-3 mb-[1rem]">
             {Array.from({length: 5}).map((_, i) => {
                 if (word!.indexOf(value![i]) !== -1) {
                     if (map1.get(value![i]) > 0) {
@@ -91,7 +91,7 @@ export function CompleteRow({value, word}: WordRowProps) {
 }
 
 export function Cell({i, value, isComplete}: CellProps) {
-    const classesTw = 'h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[3rem] px-[3rem] border text-[3rem] font-bold border-gray-600 rounded-lg';
+    const classesTw = 'h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2.1rem] px-[2rem] border text-[2rem] font-bold border-gray-600 rounded-lg';
     let result: ReactElement = <span key={i} className={classesTw + ' bg-grey-600 '}>{value}</span>;
     switch (isComplete) {
         case IsComplete.NOT:

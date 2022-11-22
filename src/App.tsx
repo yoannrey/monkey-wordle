@@ -3,6 +3,7 @@ import './App.css';
 import WordRow, {CompleteRow, EmptyRow} from "./Components/Grid/Cell";
 import {Utils} from "./Utils";
 import {json_data} from "./json_data";
+import Keyboard from "./Components/Keyboard/Keyboard";
 
 
 function isGameWin(value: string[], word: string[]): boolean {
@@ -62,6 +63,7 @@ export default function App({word}: { word: string }) {
                 {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED: ' + word}
                 {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
+            <Keyboard />
         </div>
     );
 }
