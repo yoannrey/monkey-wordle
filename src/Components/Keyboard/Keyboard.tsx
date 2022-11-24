@@ -12,11 +12,11 @@ export default function Keyboard() {
                                                          className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
             </div>
             <div className="grid grid-cols-10 gap-2 mb-[1rem]">
-                {keyTouchesMid.map((touch, i) => <button key={i}
+                {keyTouchesMid.map((touch, i) => <button key={i} value={touch}
                                                          className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
             </div>
             <div className="grid grid-cols-6 gap-2 mb-[1rem]">
-                {keyTouchesBot.map((touch, i) => <button key={i}
+                {keyTouchesBot.map((touch, i) => <button key={i} value={touch}
                                                          className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base p-4 py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
             </div>
         </div>
