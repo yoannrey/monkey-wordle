@@ -10,8 +10,6 @@ const root = ReactDOM.createRoot(
 );
 let words: string[] = json_data.words;
 let word = words[Math.floor(Math.random()*words.length)];
-console.log(word);
-console.log('here')
 root.render(
     <App word={word}/>
 );

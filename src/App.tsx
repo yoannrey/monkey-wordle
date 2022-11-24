@@ -2,12 +2,18 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import WordRow, {CompleteRow, EmptyRow} from "./Components/Grid/Cell";
 import {Utils} from "./Utils";
-import {json_data} from "./json_data";
 import Keyboard from "./Components/Keyboard/Keyboard";
+import {json_data} from "./json_data";
 
 
 function isGameWin(value: string[], word: string[]): boolean {
     return JSON.stringify(value) === JSON.stringify(word);
+}
+
+function isWordValid(value: string[]): boolean {
+    let words: string[] = json_data.words;
+    return words.includes(value.join(''));
+
 }
 
 export default function App({word}: { word: string }) {
@@ -30,10 +36,9 @@ export default function App({word}: { word: string }) {
                             return temp;
                         });
                         break;
-                    case isEnter && isWordComplete:
+                    case isEnter && isWordComplete && isWordValid(pressed):
                         setSubmitted((prev) => [...prev, pressed]);
                         // Do the things
-
                         setPressed([]);
 
                         break;
@@ -56,11 +61,12 @@ export default function App({word}: { word: string }) {
                     items-center text-amber-50"> BRAVO C'EST GAGNÉ</div>
     }
     return (
-        <div className="h-screen bg-zinc-800 flex flex-col
+        <div className="h-screen bg-zinc-900 flex flex-col
                     items-center">
             <div className="content-center mt-[6rem]">
-                {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]} word={word.split('')}/>)}
-                {submitted.length < TRIES_NB ? <WordRow value={pressed} /> : 'GAME ENDED: ' + word}
+                {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]}
+                                                                                word={word.split('')}/>)}
+                {submitted.length < TRIES_NB ? <WordRow value={pressed}/> : 'GAME ENDED: ' + word}
                 {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
             <Keyboard />

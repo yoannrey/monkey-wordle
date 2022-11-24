@@ -67,21 +67,6 @@ export function CompleteRow({value, word}: WordRowProps) {
                     }
 
                 }
-                // Check if letter exist in word
-                // if (word!.indexOf(value![i]) !== -1) {
-                //
-                //     // If index value is the same as the word index => GREEN
-                //     if (word![i] === value![i]) {
-                //         return (
-                //             <Cell key={i} value={value![i]} isComplete={IsComplete.GOOD}/>
-                //         )
-                //     }
-                //     else {
-                //         return (
-                //             <Cell key={i} value={value![i]} isComplete={IsComplete.IN}/>
-                //         )
-                //     }
-                // }
                     return (
                         <Cell key={i} value={value![i]} isComplete={IsComplete.NOT}/>
                     )
@@ -91,7 +76,7 @@ export function CompleteRow({value, word}: WordRowProps) {
 }
 
 export function Cell({i, value, isComplete}: CellProps) {
-    const classesTw = 'h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2.1rem] px-[2rem] border text-[2rem] font-bold border-gray-600 rounded-lg';
+    const classesTw = 'caret-transparent h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2.1rem] px-[2rem] border text-[2rem] font-bold border-gray-600 rounded-lg';
     let result: ReactElement = <span key={i} className={classesTw + ' bg-grey-600 '}>{value}</span>;
     switch (isComplete) {
         case IsComplete.NOT:
