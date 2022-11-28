@@ -8,6 +8,7 @@
 # testing
 /coverage
 
+./src/json_data.js
 # production
 /build
 
