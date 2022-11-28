@@ -10,9 +10,6 @@ module.exports = {
     fontSize: {
       sm: '2rem',
     },
-    // spacing: {
-    //   '32': '32rem',
-    // },
     extend: {
       keyframes: {
         wave: {

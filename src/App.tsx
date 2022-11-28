@@ -21,9 +21,8 @@ export default function App({word}: { word: string }) {
     const [submitted, setSubmitted] = useState<Array<Array<string>>>([]);
     const TRIES_NB = 6;
 
-    // const word = 'chien';
     useEffect(() => {
-            function handleKeyDown({key}: { key: string }) {
+            function handlePressedKey({key}: {key: string}) {
                 const isChar: boolean = /^[A-Za-z]$/.test(key);
                 const isBackSpace: boolean = key === Utils.BACKSPACE;
                 const isEnter: boolean = key === Utils.ENTER;
@@ -38,9 +37,7 @@ export default function App({word}: { word: string }) {
                         break;
                     case isEnter && isWordComplete && isWordValid(pressed):
                         setSubmitted((prev) => [...prev, pressed]);
-                        // Do the things
                         setPressed([]);
-
                         break;
                     case isChar && pressed.length < 5:
                         setPressed((prev) => [...prev, key]);
@@ -48,9 +45,9 @@ export default function App({word}: { word: string }) {
                 }
             }
 
-            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keydown', handlePressedKey);
             return () => {
-                window.removeEventListener('keydown', handleKeyDown);
+                window.removeEventListener('keydown', handlePressedKey);
             }
         }
         ,
@@ -60,16 +57,21 @@ export default function App({word}: { word: string }) {
         return <div className="h-screen bg-zinc-800 flex flex-col
                     items-center text-amber-50"> BRAVO C'EST GAGNÉ</div>
     }
+
+
     return (
-        <div className="h-screen bg-zinc-900 flex flex-col
+        <div className="h-screen flex flex-col bg-zinc-800
                     items-center">
-            <div className="content-center mt-[6rem]">
+            <div className="content-center mt-[3rem]">
                 {submitted.length !== 0 && submitted.map((_, i) => <CompleteRow key={i} value={submitted[i]}
                                                                                 word={word.split('')}/>)}
                 {submitted.length < TRIES_NB ? <WordRow value={pressed}/> : 'GAME ENDED: ' + word}
                 {Array.from({length: TRIES_NB - submitted.length - 1}).map((_, i) => <EmptyRow key={i}/>)}
             </div>
-            <Keyboard />
+            <Keyboard onClick={(key) => {
+            if (pressed.length < 5)
+                setPressed((prev) => [...prev, key]);
+            }}/>
         </div>
     );
 }

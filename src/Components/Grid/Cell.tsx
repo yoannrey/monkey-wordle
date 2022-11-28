@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 
-enum IsComplete {
+export enum IsComplete {
     NOT,
     IN,
     GOOD
@@ -76,17 +76,17 @@ export function CompleteRow({value, word}: WordRowProps) {
 }
 
 export function Cell({i, value, isComplete}: CellProps) {
-    const classesTw = 'caret-transparent h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2.1rem] px-[2rem] border text-[2rem] font-bold border-gray-600 rounded-lg';
-    let result: ReactElement = <span key={i} className={classesTw + ' bg-grey-600 '}>{value}</span>;
+    const classesTw = 'caret-transparent h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[1.5rem] px-[1.5rem] border text-[2rem] font-bold border-gray-600 rounded-lg';
+    let result: ReactElement = <span key={i} className={classesTw + ' bg-grey-600'}>{value}</span>;
     switch (isComplete) {
         case IsComplete.NOT:
-            result = <span key={i} className={classesTw + ' bg-zinc-800'}>{value}</span>;
+            result = <span key={i} className={classesTw + ' bg-zinc-800 not'}>{value}</span>;
             break;
         case IsComplete.IN:
-            result = <span key={i} className={classesTw + ' bg-orange-600 animate-flip-card'}>{value}</span>;
+            result = <span key={i} className={classesTw + ' bg-orange-600 in'}>{value}</span>;
             break;
         case IsComplete.GOOD:
-            result = <span key={i} className={classesTw + ' bg-green-800 animate-flip-card'}>{value}</span>;
+            result = <span key={i} className={classesTw + ' bg-green-800 good'}>{value}</span>;
             break;
     }
     return result;

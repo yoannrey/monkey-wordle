@@ -1,23 +1,38 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-export default function Keyboard() {
-    const keyTouchesTop: string[] = ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"];
-    const keyTouchesMid: string[] = ["Q", "S", "D", "F", "G", "H", "J", "K", "L", "M"];
-    const keyTouchesBot: string[] = ["W", "X", "C", "V", "B", "N"];
-
+export default function Keyboard({
+                                     onClick: onClickProp
+                                 }: { onClick: (letter: string) => void }) {
+    // const [lettersIn, setLettersIn] = useState<Array<string>>([]);
+    // const [lettersGood, setLettersGood] = useState<Array<string>>([]);
+    const keyTouches: string[] = ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "w", "x", "c", "v", "b", "n"];
+    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        let keyTouch = event.currentTarget.textContent;
+        onClickProp(keyTouch!);
+    }
+    // let elementsIn = document.querySelectorAll('span.in');
+    // let elementsGood = document.querySelectorAll('span.good');
+    // useEffect(() => {
+    //     elementsIn.forEach(element => {
+    //         if (!lettersIn.includes(element.textContent!))
+    //             setLettersIn(elem => [...elem, element.textContent!])
+    //     });
+    //     elementsGood.forEach(element => {
+    //         if (!lettersGood.includes(element.textContent!))
+    //             setLettersGood(elem => [...elem, element.textContent!])
+    //
+    //     });
+    // }, [elementsIn.length, elementsGood.length]);
+    const classes = "drop-shadow-lg hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg";
     return (
-        <div className=" caret-transparent flex-col flex text-center text-white items-center">
-            <div className="grid grid-cols-10 gap-2 mb-[1rem]">
-                {keyTouchesTop.map((touch, i) => <button key={i} value={touch}
-                                                         className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
-            </div>
-            <div className="grid grid-cols-10 gap-2 mb-[1rem]">
-                {keyTouchesMid.map((touch, i) => <button key={i} value={touch}
-                                                         className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
-            </div>
-            <div className="grid grid-cols-6 gap-2 mb-[1rem]">
-                {keyTouchesBot.map((touch, i) => <button key={i} value={touch}
-                                                         className="drop-shadow-lg bg-neutral-500 hover:bg-neutral-700 h-1 w-1 min-w-full min-h-full justify-center flex text-slate-300 items-center uppercase text-gray-base p-4 py-[2rem] px-[1.5rem] text-[1.5rem] font-bold rounded-lg">{touch}</button>)}
+        <div className="pointer-events-auto caret-transparent flex-col flex text-center text-white items-center">
+            <div className="grid content-center grid-cols-10 gap-2 mb-[1rem]">
+                {
+                    keyTouches.map((touch, i) => {
+                        return <button key={i} value={touch} onClick={onClick}
+                                       className={classes + ' bg-neutral-500'}>{touch}</button>
+                    })
+                }
             </div>
         </div>
     )
